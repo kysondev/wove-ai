@@ -8,19 +8,47 @@ const openai = new OpenAI({
 
 export async function POST(req: NextRequest) {
   try {
-    const { message, conversationHistory } = await req.json();
+    const { message, image, conversationHistory } = await req.json();
 
-    if (!message) {
+    if (!message && !image) {
       return NextResponse.json(
-        { error: "Message is required" },
+        { error: "Message or image is required" },
         { status: 400 }
       );
     }
 
-    const messages =
-      conversationHistory && conversationHistory.length > 0
-        ? [...conversationHistory, { role: "user", content: message }]
-        : [{ role: "user", content: message }];
+    let messages: any[] = [];
+    
+    if (conversationHistory && conversationHistory.length > 0) {
+      messages = conversationHistory.map((msg: any) => {
+        if (msg.image) {
+          return {
+            role: msg.role,
+            content: [
+              { type: "text", text: msg.content || "" },
+              { type: "image_url", image_url: { url: msg.image } }
+            ]
+          };
+        }
+        return {
+          role: msg.role,
+          content: msg.content || ""
+        };
+      });
+    }
+
+    if (image) {
+      const currentMessage = {
+        role: "user" as const,
+        content: [
+          { type: "text", text: message || "Please analyze this image and provide fashion advice." },
+          { type: "image_url", image_url: { url: image } }
+        ]
+      };
+      messages.push(currentMessage);
+    } else {
+      messages.push({ role: "user", content: message });
+    }
 
     const stream = await openai.chat.completions.create({
       model: "Wove-5",
