@@ -118,7 +118,7 @@ export default function FashionAI() {
         id: "1",
         type: "assistant",
         content:
-          "Hi! I'm your AI fashion assistant. I can help you with style advice, outfit ideas, trend discussions, and any fashion-related questions. What would you like to know about today?",
+          "Hello there, I am Wove, your personal fashion Assistant! Ready to help you with all your fashion/styling needs!",
         timestamp: new Date(),
       },
     ]);
