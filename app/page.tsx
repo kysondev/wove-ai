@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Send, Bot, User, Image as ImageIcon, X } from "lucide-react";
+import { Send, User, Image as ImageIcon, X } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import Image from "next/image";
 
 interface ChatMessage {
   id: string;
@@ -47,12 +48,12 @@ export default function FashionAI() {
       alert("Image size must be less than 5MB");
       return;
     }
-    
-    if (!file.type.startsWith('image/')) {
+
+    if (!file.type.startsWith("image/")) {
       alert("Please select a valid image file");
       return;
     }
-    
+
     const reader = new FileReader();
     reader.onload = (e) => {
       const result = e.target?.result as string;
@@ -74,7 +75,7 @@ export default function FashionAI() {
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragOver(false);
-    
+
     const files = e.dataTransfer.files;
     if (files.length > 0) {
       processImageFile(files[0]);
@@ -196,7 +197,7 @@ export default function FashionAI() {
       <div className="bg-neutral-900/80 backdrop-blur-sm border-b border-neutral-800/50 px-6 py-4 flex items-center justify-between shadow-lg">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-neutral-100 to-neutral-200 flex items-center justify-center shadow-lg">
-            <Bot className="h-5 w-5 text-neutral-800" />
+            <Image src="/wove.png" alt="Logo" width={32} height={32} />
           </div>
           <h1 className="text-lg font-bold text-white tracking-tight font-sans">
             Wove AI
@@ -221,7 +222,7 @@ export default function FashionAI() {
             >
               {message.type === "assistant" && (
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-neutral-100 to-neutral-200 flex items-center justify-center flex-shrink-0 shadow-lg">
-                  <Bot className="h-6 w-6 text-neutral-800" />
+                  <Image src="/wove.png" alt="Logo" width={32} height={32} />
                 </div>
               )}
 
@@ -246,12 +247,32 @@ export default function FashionAI() {
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     components={{
-                      p: ({ children }) => <p className="whitespace-pre-wrap leading-relaxed text-base mb-3 last:mb-0">{children}</p>,
-                      strong: ({ children }) => <strong className="font-bold">{children}</strong>,
-                      em: ({ children }) => <em className="italic">{children}</em>,
-                      code: ({ children }) => <code className="bg-neutral-200 px-1.5 py-0.5 rounded text-sm font-mono">{children}</code>,
-                      ul: ({ children }) => <ul className="list-disc list-inside mb-3 space-y-1">{children}</ul>,
-                      ol: ({ children }) => <ol className="list-decimal list-inside mb-3 space-y-1">{children}</ol>,
+                      p: ({ children }) => (
+                        <p className="whitespace-pre-wrap leading-relaxed text-base mb-3 last:mb-0">
+                          {children}
+                        </p>
+                      ),
+                      strong: ({ children }) => (
+                        <strong className="font-bold">{children}</strong>
+                      ),
+                      em: ({ children }) => (
+                        <em className="italic">{children}</em>
+                      ),
+                      code: ({ children }) => (
+                        <code className="bg-neutral-200 px-1.5 py-0.5 rounded text-sm font-mono">
+                          {children}
+                        </code>
+                      ),
+                      ul: ({ children }) => (
+                        <ul className="list-disc list-inside mb-3 space-y-1">
+                          {children}
+                        </ul>
+                      ),
+                      ol: ({ children }) => (
+                        <ol className="list-decimal list-inside mb-3 space-y-1">
+                          {children}
+                        </ol>
+                      ),
                       li: ({ children }) => <li>{children}</li>,
                     }}
                   >
@@ -261,23 +282,63 @@ export default function FashionAI() {
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     components={{
-                      p: ({ children }) => <p className="whitespace-pre-wrap leading-relaxed text-base mb-3 last:mb-0">{children}</p>,
-                      h1: ({ children }) => <h1 className="text-2xl font-bold mb-3 text-white">{children}</h1>,
-                      h2: ({ children }) => <h2 className="text-xl font-bold mb-2 text-white">{children}</h2>,
-                      h3: ({ children }) => <h3 className="text-lg font-bold mb-2 text-white">{children}</h3>,
-                      h4: ({ children }) => <h4 className="text-base font-bold mb-2 text-white">{children}</h4>,
-                      h5: ({ children }) => <h5 className="text-sm font-bold mb-2 text-white">{children}</h5>,
-                      h6: ({ children }) => <h6 className="text-xs font-bold mb-2 text-white">{children}</h6>,
-                      strong: ({ children }) => <strong className="font-bold text-white">{children}</strong>,
-                      em: ({ children }) => <em className="italic text-neutral-200">{children}</em>,
+                      p: ({ children }) => (
+                        <p className="whitespace-pre-wrap leading-relaxed text-base mb-3 last:mb-0">
+                          {children}
+                        </p>
+                      ),
+                      h1: ({ children }) => (
+                        <h1 className="text-2xl font-bold mb-3 text-white">
+                          {children}
+                        </h1>
+                      ),
+                      h2: ({ children }) => (
+                        <h2 className="text-xl font-bold mb-2 text-white">
+                          {children}
+                        </h2>
+                      ),
+                      h3: ({ children }) => (
+                        <h3 className="text-lg font-bold mb-2 text-white">
+                          {children}
+                        </h3>
+                      ),
+                      h4: ({ children }) => (
+                        <h4 className="text-base font-bold mb-2 text-white">
+                          {children}
+                        </h4>
+                      ),
+                      h5: ({ children }) => (
+                        <h5 className="text-sm font-bold mb-2 text-white">
+                          {children}
+                        </h5>
+                      ),
+                      h6: ({ children }) => (
+                        <h6 className="text-xs font-bold mb-2 text-white">
+                          {children}
+                        </h6>
+                      ),
+                      strong: ({ children }) => (
+                        <strong className="font-bold text-white">
+                          {children}
+                        </strong>
+                      ),
+                      em: ({ children }) => (
+                        <em className="italic text-neutral-200">{children}</em>
+                      ),
                       code: ({ children, className }) => {
                         const isInline = !className;
                         if (isInline) {
-                          return <code className="bg-neutral-700/60 px-1.5 py-0.5 rounded text-sm font-mono text-neutral-200">{children}</code>;
+                          return (
+                            <code className="bg-neutral-700/60 px-1.5 py-0.5 rounded text-sm font-mono text-neutral-200">
+                              {children}
+                            </code>
+                          );
                         }
                         return (
                           <pre className="bg-neutral-800/80 p-4 rounded-lg overflow-x-auto mb-3">
-                            <code className="text-sm font-mono text-neutral-200">{children}</code>
+                            <code className="text-sm font-mono text-neutral-200">
+                              {children}
+                            </code>
                           </pre>
                         );
                       },
@@ -286,11 +347,26 @@ export default function FashionAI() {
                           {children}
                         </blockquote>
                       ),
-                      ul: ({ children }) => <ul className="list-disc list-inside mb-3 space-y-1">{children}</ul>,
-                      ol: ({ children }) => <ol className="list-decimal list-inside mb-3 space-y-1">{children}</ol>,
-                      li: ({ children }) => <li className="text-neutral-200">{children}</li>,
+                      ul: ({ children }) => (
+                        <ul className="list-disc list-inside mb-3 space-y-1">
+                          {children}
+                        </ul>
+                      ),
+                      ol: ({ children }) => (
+                        <ol className="list-decimal list-inside mb-3 space-y-1">
+                          {children}
+                        </ol>
+                      ),
+                      li: ({ children }) => (
+                        <li className="text-neutral-200">{children}</li>
+                      ),
                       a: ({ href, children }) => (
-                        <a href={href} className="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener noreferrer">
+                        <a
+                          href={href}
+                          className="text-blue-400 hover:text-blue-300 underline"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           {children}
                         </a>
                       ),
@@ -350,7 +426,7 @@ export default function FashionAI() {
           {isLoading && (
             <div className="flex gap-4 justify-start">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-neutral-100 to-neutral-200 flex items-center justify-center flex-shrink-0 shadow-lg">
-                <Bot className="h-6 w-6 text-neutral-800" />
+                <Image src="/wove.png" alt="Logo" width={32} height={32} />
               </div>
               <div className="bg-neutral-800/60 backdrop-blur-sm text-white border border-neutral-700/50 px-6 py-4 rounded-2xl shadow-lg">
                 <div className="flex space-x-2">
@@ -390,11 +466,13 @@ export default function FashionAI() {
               </button>
             </div>
           )}
-          
+
           <form onSubmit={handleChatSubmit} className="relative">
-            <div 
+            <div
               className={`relative flex items-center gap-2 transition-all duration-200 ${
-                isDragOver ? 'bg-neutral-700/60 border-2 border-dashed border-neutral-400 rounded-2xl p-2' : ''
+                isDragOver
+                  ? "bg-neutral-700/60 border-2 border-dashed border-neutral-400 rounded-2xl p-2"
+                  : ""
               }`}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
@@ -405,7 +483,9 @@ export default function FashionAI() {
                 type="text"
                 value={chatMessage}
                 onChange={(e) => setChatMessage(e.target.value)}
-                placeholder={isDragOver ? "Drop image here..." : "Message Wove AI..."}
+                placeholder={
+                  isDragOver ? "Drop image here..." : "Message Wove AI..."
+                }
                 className="flex-1 px-6 py-4 pr-32 bg-neutral-800/60 backdrop-blur-sm border border-neutral-700/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent resize-none text-white placeholder-neutral-400 text-base transition-all duration-200 shadow-lg"
                 disabled={isLoading}
               />
@@ -416,7 +496,7 @@ export default function FashionAI() {
                 onChange={handleImageUpload}
                 className="hidden"
               />
-              
+
               <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center gap-2">
                 <button
                   type="button"
@@ -429,7 +509,9 @@ export default function FashionAI() {
                 </button>
                 <button
                   type="submit"
-                  disabled={isLoading || (!chatMessage.trim() && !selectedImage)}
+                  disabled={
+                    isLoading || (!chatMessage.trim() && !selectedImage)
+                  }
                   className="p-3 bg-neutral-300 hover:bg-neutral-200 text-neutral-800 hover:text-neutral-900 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
                 >
                   <Send className="h-4 w-4" />
@@ -443,7 +525,9 @@ export default function FashionAI() {
             )}
           </form>
           <div className="flex items-center justify-center gap-4 mt-3 text-xs text-neutral-500">
-            <span>Tip: Upload fashion images for personalized styling advice</span>
+            <span>
+              Tip: Upload fashion images for personalized styling advice
+            </span>
             <span>•</span>
             <span>Drag & drop or click the image icon</span>
             <span>•</span>
