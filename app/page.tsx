@@ -23,7 +23,7 @@ export default function FashionAI() {
       id: "1",
       type: "assistant",
       content:
-        "Hello there, I am Wove, your personal fashion Assistant! Ready to help you with all your fashion/styling needs!",
+        "Hello there, I am Wove, your personal fashion Assistant! Ready to help you with all your fashion/styling needs! To get started, do you have any specific outfit choices you have in mind?👔",
       timestamp: new Date(),
     },
   ]);
@@ -186,7 +186,7 @@ export default function FashionAI() {
         id: "1",
         type: "assistant",
         content:
-          "Hi! I'm your AI fashion assistant. I can help you with style advice, outfit ideas, trend discussions, and any fashion-related questions. You can also upload images for me to analyze and provide styling advice.",
+          "Hello there, I am Wove, your personal fashion Assistant! Ready to help you with all your fashion/styling needs! To get started, do you have any specific outfit choices you have in mind?👔",
         timestamp: new Date(),
       },
     ]);
