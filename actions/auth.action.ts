@@ -86,6 +86,7 @@ export const signInWithGoogle = async () => {
   try {
     const { error } = await authClient.signIn.social({
       provider: "google",
+      callbackURL: "/chat/new",
     });
     if (error) {
       toast.error(error.message as string);
@@ -100,6 +101,7 @@ export const signInWithGithub = async () => {
   try {
     const { error } = await authClient.signIn.social({
       provider: "github",
+      callbackURL: "/chat/new",
     });
     if (error) {
       toast.error(error.message as string);
