@@ -17,7 +17,7 @@ import {
   updateMessageContent,
 } from "../../actions/chat.action";
 import { usePathname } from "next/navigation";
-import { User } from "@/generated/prisma-client";
+import { User } from "@prisma/client";
 
 interface ChatMessage {
   id: string;
