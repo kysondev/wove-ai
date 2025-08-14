@@ -1,15 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Toaster } from "react-hot-toast";
+import { Inter } from "next/font/google";
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-});
-
-const playfair = Playfair_Display({ 
-  subsets: ["latin"],
-  variable: "--font-playfair",
 });
 
 export const metadata: Metadata = {
@@ -24,7 +20,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`antialiased bg-neutral-950 text-white ${inter.variable} ${playfair.variable}`}>{children}</body>
+      <body
+        className={`antialiased bg-neutral-950 text-white ${inter.variable}`}
+      >
+        <Toaster />
+        {children}
+      </body>
     </html>
   );
 }

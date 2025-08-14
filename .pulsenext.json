@@ -2,5 +2,9 @@
   "projectName": "clothing",
   "version": "0.1.1",
   "createdAt": "2025-08-11T13:31:01.938Z",
-  "modules": []
+  "modules": [
+    "database",
+    "email",
+    "auth"
+  ]
 }
