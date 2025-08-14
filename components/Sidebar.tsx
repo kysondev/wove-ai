@@ -5,13 +5,16 @@ import { MessageSquare, Plus, Trash2, X } from "lucide-react";
 import Image from "next/image";
 import { useChat } from "./providers/ChatProvider";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Sidebar({ isOpen, onToggle }: { isOpen: boolean; onToggle: () => void }) {
+  const router = useRouter();
   const {
     allChatSessions,
     activeChatSessionId,
     removeChatSession,
     currentUser,
+    startNewChat,
   } = useChat();
 
   const [isHovered, setIsHovered] = useState<string | null>(null);
@@ -61,13 +64,16 @@ export default function Sidebar({ isOpen, onToggle }: { isOpen: boolean; onToggl
         </div>
 
         <div className="p-4">
-          <Link
-            href="/chat/new"
+          <button
+            onClick={() => {
+              startNewChat();
+              router.push("/chat/new");
+            }}
             className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-neutral-800/60 hover:bg-neutral-700/60 border border-neutral-700/50 hover:border-neutral-600/50 rounded-xl text-white transition-all duration-200 group"
           >
             <Plus className="h-5 w-5 group-hover:scale-110 transition-transform" />
             <span className="font-medium">New Chat</span>
-          </Link>
+          </button>
         </div>
 
         <div className="flex-1 overflow-y-auto px-4 pb-4">

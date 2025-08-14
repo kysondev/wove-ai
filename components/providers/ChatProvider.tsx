@@ -139,12 +139,13 @@ export function ChatProvider({
   const startNewChat = useCallback(() => {
     setAllChatSessions((previousSessions) => [
       createWelcomeChatSession(),
-      ...previousSessions.filter((session) => session.id !== ""),
+      ...previousSessions.filter((session) => session.id !== "")
     ]);
     setActiveChatSessionId("");
     setIsSidebarVisible(false);
     setCurrentMessageText("");
     setUploadedImage(null);
+    setIsProcessingMessage(false);
   }, []);
 
   useEffect(() => {
