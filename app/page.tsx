@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Plus, MessageSquare, Sparkles } from "lucide-react";
+import { Plus } from "lucide-react";
 
 export default function HomePage() {
   return (
