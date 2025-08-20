@@ -48,7 +48,7 @@ export default function Sidebar({ isOpen, onToggle }: { isOpen: boolean; onToggl
         lg:translate-x-0 lg:static lg:z-auto
         w-80 flex-shrink-0
       `}>
-        <div className="flex items-center justify-between p-4 border-b border-neutral-800/50">
+        <div className="flex items-center justify-between px-6 py-4 h-[65px] border-b border-neutral-800/50 shadow-lg">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-neutral-100 to-neutral-200 flex items-center justify-center shadow-lg">
               <Image src="/wove.png" alt="Logo" width={32} height={32} />

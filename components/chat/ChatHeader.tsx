@@ -21,7 +21,7 @@ export default function ChatHeader({ onToggleSidebar }: ChatHeaderProps) {
   };
 
   return (
-    <div className="bg-neutral-900/80 backdrop-blur-sm border-b border-neutral-800/50 px-6 py-4 flex items-center justify-between shadow-lg">
+    <div className="bg-neutral-900/80 backdrop-blur-sm border-b border-neutral-800/50 px-6 py-4 h-[65px] flex items-center justify-between shadow-lg">
       <div className="flex items-center gap-4">
         <button
           onClick={onToggleSidebar}
