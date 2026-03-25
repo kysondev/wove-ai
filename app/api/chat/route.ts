@@ -50,56 +50,57 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const input: any[] = [];
+    const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
+      { role: "system", content: BOT_INSTRUCTIONS },
+    ];
 
     if (conversationHistory?.length) {
       for (const msg of conversationHistory) {
         if (msg.image) {
-          input.push({
+          messages.push({
             role: msg.role,
             content: [
-              { type: "input_text", text: msg.content || "" },
-              { type: "input_image", image_url: msg.image },
+              { type: "text", text: msg.content || "" },
+              { type: "image_url", image_url: { url: msg.image } },
             ],
-          });
+          } as any);
         } else {
-          input.push({
+          messages.push({
             role: msg.role,
-            content: [{ type: "input_text", text: msg.content || "" }],
+            content: msg.content || "",
           });
         }
       }
     }
 
     if (image) {
-      input.push({
+      messages.push({
         role: "user",
         content: [
           {
-            type: "input_text",
+            type: "text",
             text:
               message ||
               "Please analyze this image and provide fashion advice.",
           },
           {
-            type: "input_image",
-            image_url: image,
+            type: "image_url",
+            image_url: { url: image },
           },
         ],
       });
     } else {
-      input.push({
+      messages.push({
         role: "user",
-        content: [{ type: "input_text", text: message }],
+        content: message,
       });
     }
 
-    const stream = await openai.responses.create({
+    const stream = await openai.chat.completions.create({
       model: "gpt-4o-mini",
-      instructions: BOT_INSTRUCTIONS,
-      input,
+      messages,
       temperature: 0.7,
-      max_output_tokens: 1000,
+      max_tokens: 1000,
       stream: true,
     });
 
@@ -108,9 +109,10 @@ export async function POST(req: NextRequest) {
         const encoder = new TextEncoder();
 
         try {
-          for await (const event of stream) {
-            if (event.type === "response.output_text.delta") {
-              controller.enqueue(encoder.encode(event.delta));
+          for await (const chunk of stream) {
+            const content = chunk.choices[0]?.delta?.content || "";
+            if (content) {
+              controller.enqueue(encoder.encode(content));
             }
           }
           controller.close();
